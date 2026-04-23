@@ -1,217 +1,188 @@
-import React, { useState } from 'react';
-import { 
-  Headphones, 
-  ShieldCheck, 
-  Clock, 
-  AlertTriangle, 
-  HeartHandshake, 
-  MessageSquare, 
-  UserCheck, 
-  FileText,
-  Printer,
-  X,
-  Volume2,
-  ThumbsUp,
-  Key,
-  Timer,
-  AlertOctagon
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Atención - Retención de Impuestos</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* Reglas específicas para garantizar una impresión perfecta en PDF */
+        @media print {
+            body {
+                background-color: white !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .print-break-inside-avoid {
+                break-inside: avoid;
+            }
+            /* Sombras suaves para impresión */
+            .shadow-sm { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important; }
+            .shadow-2xl { box-shadow: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-4 sm:p-8 font-sans flex justify-center print:p-0 print:m-0 print:block">
 
-export default function App() {
-  const [showModal, setShowModal] = useState(false);
-
-  const handlePrint = () => {
-    try {
-      window.print();
-    } catch(e) {
-      console.log("Impresión bloqueada por el navegador");
-    }
-    setShowModal(true);
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-100 p-4 sm:p-8 font-sans flex justify-center print:block print:bg-white print:p-0 print:m-0 print:min-h-0">
-      
-      {/* Contenedor Principal */}
-      <div className="w-full max-w-4xl bg-white shadow-2xl rounded-xl overflow-hidden print:shadow-none print:rounded-none print:overflow-visible print:max-w-full">
+    <!-- Contenedor Principal -->
+    <div class="w-full max-w-4xl bg-white shadow-2xl rounded-xl overflow-hidden print:shadow-none print:rounded-none print:max-w-full">
         
-        {/* ENCABEZADO */}
-        <header className="bg-gradient-to-r from-blue-900 to-blue-700 text-white p-6 print:py-4 print:bg-none print:bg-white print:text-blue-900 print:border-b-4 print:border-blue-900">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-4">
-              <div className="bg-white p-3 rounded-full text-blue-900 print:hidden">
-                <Headphones size={32} />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold uppercase tracking-wide">Guía de Atención Telefónica</h1>
-                <p className="text-blue-100 text-sm mt-1 flex items-center gap-2 print:text-blue-800">
-                  <FileText size={16} /> 
-                  Manejo de Tiempos: Constancias de Retención de Impuestos
-                </p>
-              </div>
+        <!-- ENCABEZADO -->
+        <header class="bg-gradient-to-r from-blue-900 to-blue-700 text-white p-6 print:py-4 print:border-b-4 print:border-blue-900">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <div class="bg-white p-3 rounded-full text-blue-900 no-print">
+                        <i data-lucide="headphones" class="w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold uppercase tracking-wide">Guía de Atención Telefónica</h1>
+                        <p class="text-blue-100 text-sm mt-1 flex items-center gap-2">
+                            <i data-lucide="file-text" class="w-4 h-4"></i>
+                            Manejo de Tiempos: Constancias de Retención de Impuestos
+                        </p>
+                    </div>
+                </div>
+                <button onclick="window.print()" class="hidden sm:flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg transition-colors no-print text-sm shadow-md">
+                    <i data-lucide="printer" class="w-4 h-4"></i>
+                    Imprimir / Guardar PDF
+                </button>
             </div>
-            <button 
-              onClick={handlePrint}
-              className="hidden sm:flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg transition-colors print:hidden text-sm"
-            >
-              <Printer size={18} />
-              Guardar PDF
-            </button>
-          </div>
         </header>
 
-        <div className="p-6 md:p-8">
-          
-          {/* OBJETIVO */}
-          <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg mb-8 text-blue-900 print:bg-blue-50">
-            <p className="font-semibold flex items-center gap-2">
-              <ShieldCheck size={20} className="text-blue-600" />
-              Objetivo de esta guía:
-            </p>
-            <p className="text-sm mt-1">
-              Tranquilizar al trabajador, confirmar que su trámite está en seguimiento por la <strong>Unidad Especializada</strong> y justificar el tiempo de espera <strong>sin mencionar al área de Contabilidad ni prometer días exactos.</strong>
-            </p>
-          </div>
-
-          {/* GUIONES */}
-          <h2 className="text-xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-6 flex items-center gap-2">
-            <MessageSquare className="text-blue-600" />
-            Guiones de Respuesta
-          </h2>
-
-          <div className="space-y-6">
+        <div class="p-6 md:p-8">
             
-            {/* OPCIÓN 1 */}
-            <div className="bg-white border border-emerald-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow print:break-inside-avoid">
-              <div className="bg-emerald-50 px-4 py-3 border-b border-emerald-100 flex items-center gap-3">
-                <div className="bg-emerald-100 p-2 rounded-full text-emerald-700">
-                  <UserCheck size={20} />
-                </div>
-                <div>
-                  <h3 className="font-bold text-emerald-900">Opción 1: Atención y Cuidado</h3>
-                  <p className="text-xs text-emerald-700">Ideal para: Trabajadores inquietos pero dialogantes.</p>
-                </div>
-              </div>
-              <div className="p-4 text-gray-700 italic text-sm md:text-base leading-relaxed bg-emerald-50/30">
-                "Entiendo su urgencia por realizar su aclaración fiscal, [Nombre]. Revisando su folio, le confirmo que <strong className="text-emerald-900">su solicitud y su RFC ya están en manos de nuestra Unidad Especializada</strong>. Al tratarse de un documento oficial, su emisión requiere un proceso interno de validación para garantizar que los importes y sus datos estén correctos. Estamos trabajando para enviársela en el menor tiempo posible directamente a su correo. Le aseguro que su trámite está en movimiento y le estamos dando el seguimiento adecuado."
-              </div>
+            <!-- OBJETIVO -->
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg mb-8 text-blue-900">
+                <p class="font-semibold flex items-center gap-2">
+                    <i data-lucide="shield-check" class="w-5 h-5 text-blue-600"></i>
+                    Objetivo de esta guía:
+                </p>
+                <p class="text-sm mt-1">
+                    Tranquilizar al trabajador, confirmar que su trámite está en seguimiento por la <strong>Unidad Especializada</strong> y justificar el tiempo de espera <strong>sin mencionar al área de Contabilidad ni prometer días exactos.</strong>
+                </p>
             </div>
 
-            {/* OPCIÓN 2 */}
-            <div className="bg-white border border-orange-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow print:break-inside-avoid">
-              <div className="bg-orange-50 px-4 py-3 border-b border-orange-100 flex items-center gap-3">
-                <div className="bg-orange-100 p-2 rounded-full text-orange-700">
-                  <AlertTriangle size={20} />
-                </div>
-                <div>
-                  <h3 className="font-bold text-orange-900">Opción 2: Contención y Desescalada</h3>
-                  <p className="text-xs text-orange-700">Ideal para: Trabajadores muy molestos o desesperados.</p>
-                </div>
-              </div>
-              <div className="p-4 text-gray-700 italic text-sm md:text-base leading-relaxed bg-orange-50/30">
-                "Comprendo su molestia y la preocupación por los tiempos de su trámite, [Nombre]. Quiero darle la tranquilidad de que <strong className="text-orange-900">su folio se encuentra activo y en revisión</strong>. La Unidad Especializada ya está procesando la elaboración de su constancia. Como estos documentos requieren timbrados y validaciones fiscales internas, el proceso toma un poco más de tiempo de lo habitual. Tenga la certeza de que su trámite es una prioridad y, tan pronto el sistema libere el documento, se lo haremos llegar de inmediato a su correo."
-              </div>
-            </div>
-
-            {/* OPCIÓN 3 */}
-            <div className="bg-white border border-blue-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow print:break-inside-avoid">
-              <div className="bg-blue-50 px-4 py-3 border-b border-blue-100 flex items-center gap-3">
-                <div className="bg-blue-100 p-2 rounded-full text-blue-700">
-                  <Clock size={20} />
-                </div>
-                <div>
-                  <h3 className="font-bold text-blue-900">Opción 3: Breve y Directo</h3>
-                  <p className="text-xs text-blue-700">Ideal para: Llamadas rápidas de actualización de estatus.</p>
-                </div>
-              </div>
-              <div className="p-4 text-gray-700 italic text-sm md:text-base leading-relaxed bg-blue-50/30">
-                "Le comprendo, [Nombre]. Veo en el sistema que la Unidad Especializada ya recibió su RFC y <strong className="text-blue-900">actualmente su constancia se encuentra en la etapa de emisión</strong>. Debido a la naturaleza fiscal de este documento, su elaboración lleva un proceso de revisión y no se genera de forma automática. Le pido un poco de paciencia, su solicitud está activa. En cuanto la constancia esté lista, se le enviará a su correo."
-              </div>
-            </div>
-
-          </div>
-
-          {/* CONSEJOS CLAVE */}
-          <div className="mt-10 break-inside-avoid">
-            <h2 className="text-xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-6 flex items-center gap-2">
-              <HeartHandshake className="text-blue-600" />
-              Consejos Clave de Atención
+            <!-- GUIONES -->
+            <h2 class="text-xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-6 flex items-center gap-2">
+                <i data-lucide="message-square" class="w-6 h-6 text-blue-600"></i>
+                Guiones de Respuesta
             </h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-gray-50 border border-gray-200 p-4 rounded-lg">
-                <h4 className="font-bold text-blue-900 mb-1 flex items-center gap-2">
-                  <Volume2 size={18} className="text-blue-600" />
-                  Tono de voz
-                </h4>
-                <p className="text-sm text-gray-600">Tranquilo, seguro y empático. El cliente está estresado por temas del SAT, transmitir calma es fundamental.</p>
-              </div>
-              <div className="bg-gray-50 border border-gray-200 p-4 rounded-lg">
-                <h4 className="font-bold text-blue-900 mb-1 flex items-center gap-2">
-                  <ThumbsUp size={18} className="text-blue-600" />
-                  Validación
-                </h4>
-                <p className="text-sm text-gray-600">Comienza dándole la razón: <em>"Entiendo su urgencia"</em>, <em>"Comprendo su molestia"</em>. Esto baja la guardia del trabajador.</p>
-              </div>
-              <div className="bg-gray-50 border border-gray-200 p-4 rounded-lg">
-                <h4 className="font-bold text-blue-900 mb-1 flex items-center gap-2">
-                  <Key size={18} className="text-blue-600" />
-                  Palabras clave
-                </h4>
-                <p className="text-sm text-gray-600">Usa frases como <strong>"Trámite activo"</strong> o <strong>"En revisión"</strong>. Da mucha paz mental saber que su trámite no se perdió.</p>
-              </div>
-              <div className="bg-gray-50 border border-gray-200 p-4 rounded-lg">
-                <h4 className="font-bold text-blue-900 mb-1 flex items-center gap-2">
-                  <Timer size={18} className="text-blue-600" />
-                  Presión del tiempo
-                </h4>
-                <p className="text-sm text-gray-600">Si exigen fecha exacta: <em>"Dependemos de validaciones fiscales del sistema, mi compromiso es que se libere lo más pronto posible."</em></p>
-              </div>
+
+            <div class="space-y-6">
+                
+                <!-- OPCIÓN 1 -->
+                <div class="bg-white border border-emerald-200 rounded-xl overflow-hidden shadow-sm print-break-inside-avoid">
+                    <div class="bg-emerald-50 px-4 py-3 border-b border-emerald-100 flex items-center gap-3">
+                        <div class="bg-emerald-100 p-2 rounded-full text-emerald-700">
+                            <i data-lucide="user-check" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-emerald-900">Opción 1: Atención y Cuidado</h3>
+                            <p class="text-xs text-emerald-700">Ideal para: Trabajadores inquietos pero dialogantes.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 text-gray-700 italic text-sm md:text-base leading-relaxed bg-emerald-50/30">
+                        "Entiendo su urgencia por realizar su aclaración fiscal, [Nombre]. Revisando su folio, le confirmo que <strong class="text-emerald-900">su solicitud y su RFC ya están en manos de nuestra Unidad Especializada</strong>. Al tratarse de un documento oficial, su emisión requiere un proceso interno de validación para garantizar que los importes y sus datos estén correctos. Estamos trabajando para enviársela en el menor tiempo posible directamente a su correo. Le aseguro que su trámite está en movimiento y le estamos dando el seguimiento adecuado."
+                    </div>
+                </div>
+
+                <!-- OPCIÓN 2 -->
+                <div class="bg-white border border-orange-200 rounded-xl overflow-hidden shadow-sm print-break-inside-avoid">
+                    <div class="bg-orange-50 px-4 py-3 border-b border-orange-100 flex items-center gap-3">
+                        <div class="bg-orange-100 p-2 rounded-full text-orange-700">
+                            <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-orange-900">Opción 2: Contención y Desescalada</h3>
+                            <p class="text-xs text-orange-700">Ideal para: Trabajadores muy molestos o desesperados.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 text-gray-700 italic text-sm md:text-base leading-relaxed bg-orange-50/30">
+                        "Comprendo su molestia y la preocupación por los tiempos de su trámite, [Nombre]. Quiero darle la tranquilidad de que <strong class="text-orange-900">su folio se encuentra activo y en revisión</strong>. La Unidad Especializada ya está procesando la elaboración de su constancia. Como estos documentos requieren timbrados y validaciones fiscales internas, el proceso toma un poco más de tiempo de lo habitual. Tenga la certeza de que su trámite es una prioridad y, tan pronto el sistema libere el documento, se lo haremos llegar de inmediato a su correo."
+                    </div>
+                </div>
+
+                <!-- OPCIÓN 3 -->
+                <div class="bg-white border border-blue-200 rounded-xl overflow-hidden shadow-sm print-break-inside-avoid">
+                    <div class="bg-blue-50 px-4 py-3 border-b border-blue-100 flex items-center gap-3">
+                        <div class="bg-blue-100 p-2 rounded-full text-blue-700">
+                            <i data-lucide="clock" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-blue-900">Opción 3: Breve y Directo</h3>
+                            <p class="text-xs text-blue-700">Ideal para: Llamadas rápidas de actualización de estatus.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 text-gray-700 italic text-sm md:text-base leading-relaxed bg-blue-50/30">
+                        "Le comprendo, [Nombre]. Veo en el sistema que la Unidad Especializada ya recibió su RFC y <strong class="text-blue-900">actualmente su constancia se encuentra en la etapa de emisión</strong>. Debido a la naturaleza fiscal de este documento, su elaboración lleva un proceso de revisión y no se genera de forma automática. Le pido un poco de paciencia, su solicitud está activa. En cuanto la constancia esté lista, se le enviará a su correo."
+                    </div>
+                </div>
+
             </div>
-          </div>
 
-          {/* REGLA IMPORTANTE */}
-          <div className="mt-8 bg-red-50 text-red-800 p-4 rounded-lg text-center font-bold text-sm border border-red-200 flex flex-col sm:flex-row items-center justify-center gap-2">
-            <AlertOctagon size={20} className="text-red-600" />
-            <span><strong>REGLA IMPORTANTE:</strong> Nunca mencionar al área de Contabilidad ni prometer plazos fijos de días.</span>
-          </div>
+            <!-- CONSEJOS CLAVE -->
+            <div class="mt-10 print-break-inside-avoid">
+                <h2 class="text-xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-6 flex items-center gap-2">
+                    <i data-lucide="heart-handshake" class="w-6 h-6 text-blue-600"></i>
+                    Consejos Clave de Atención
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gray-50 border border-gray-200 p-4 rounded-lg">
+                        <h4 class="font-bold text-blue-900 mb-1 flex items-center gap-2">
+                            <i data-lucide="volume-2" class="w-4 h-4 text-blue-600"></i>
+                            Tono de voz
+                        </h4>
+                        <p class="text-sm text-gray-600">Tranquilo, seguro y empático. El cliente está estresado por temas del SAT, transmitir calma es fundamental.</p>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-200 p-4 rounded-lg">
+                        <h4 class="font-bold text-blue-900 mb-1 flex items-center gap-2">
+                            <i data-lucide="thumbs-up" class="w-4 h-4 text-blue-600"></i>
+                            Validación
+                        </h4>
+                        <p class="text-sm text-gray-600">Comienza dándole la razón: <em>"Entiendo su urgencia"</em>, <em>"Comprendo su molestia"</em>. Esto baja la guardia del trabajador.</p>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-200 p-4 rounded-lg">
+                        <h4 class="font-bold text-blue-900 mb-1 flex items-center gap-2">
+                            <i data-lucide="key" class="w-4 h-4 text-blue-600"></i>
+                            Palabras clave
+                        </h4>
+                        <p class="text-sm text-gray-600">Usa frases como <strong>"Trámite activo"</strong> o <strong>"En revisión"</strong>. Da mucha paz mental saber que su trámite no se perdió.</p>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-200 p-4 rounded-lg">
+                        <h4 class="font-bold text-blue-900 mb-1 flex items-center gap-2">
+                            <i data-lucide="timer" class="w-4 h-4 text-blue-600"></i>
+                            Presión del tiempo
+                        </h4>
+                        <p class="text-sm text-gray-600">Si exigen fecha exacta: <em>"Dependemos de validaciones fiscales del sistema, mi compromiso es que se libere lo más pronto posible."</em></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REGLA IMPORTANTE -->
+            <div class="mt-8 bg-red-50 text-red-800 p-4 rounded-lg text-center font-bold text-sm border border-red-200 flex flex-col sm:flex-row items-center justify-center gap-2 print-break-inside-avoid">
+                <i data-lucide="alert-octagon" class="w-5 h-5 text-red-600 flex-shrink-0"></i>
+                <span><strong>REGLA IMPORTANTE:</strong> Nunca mencionar al área de Contabilidad ni prometer plazos fijos de días.</span>
+            </div>
+
+            <!-- Instrucciones flotantes para impresión (Solo visibles en pantalla si se necesita) -->
+            <div class="mt-8 text-center text-xs text-gray-500 no-print">
+                Para guardar como PDF, presiona <kbd class="bg-gray-200 px-1 rounded">Ctrl + P</kbd> y asegúrate de marcar "Gráficos de fondo" en la configuración.
+            </div>
 
         </div>
-      </div>
-
-      {/* MODAL INSTRUCCIONES IMPRESIÓN */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50 print:hidden backdrop-blur-sm">
-          <div className="bg-white rounded-xl shadow-2xl p-6 max-w-sm w-full relative">
-            <button 
-              onClick={() => setShowModal(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
-            >
-              <X size={24} />
-            </button>
-            <h3 className="text-xl font-bold text-blue-900 mb-2 flex items-center gap-2">
-              <Printer size={24} />
-              Guardar como PDF
-            </h3>
-            <p className="text-gray-600 mb-4 text-sm">
-              Para guardar esta guía con todo su diseño, sigue estos pasos:
-            </p>
-            <ol className="list-decimal list-inside text-gray-800 space-y-2 mb-6 text-sm font-medium">
-              <li>Haz clic en el fondo blanco de la guía.</li>
-              <li>Presiona <strong>Ctrl + P</strong> (Windows) o <strong>Cmd + P</strong> (Mac).</li>
-              <li>En destino, elige <strong>Guardar como PDF</strong>.</li>
-              <li className="text-blue-700">Asegúrate de marcar la opción <strong>"Gráficos de fondo"</strong> en Más ajustes.</li>
-            </ol>
-            <button 
-              onClick={() => setShowModal(false)}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition-colors"
-            >
-              Entendido
-            </button>
-          </div>
-        </div>
-      )}
-
     </div>
-  );
-}
+
+    <!-- Inicializar íconos de Lucide -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
