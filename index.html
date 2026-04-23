@@ -1,172 +1,217 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reporte Folios MSO | Corte Sem 41</title>
-    <!-- Incluyendo Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Importando una fuente más moderna -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f1f5f9; /* slate-100 */
-        }
-    </style>
-</head>
-<body class="text-slate-800">
-    <div class="container mx-auto max-w-4xl p-4 sm:p-8 my-8">
-        <div class="bg-white rounded-2xl shadow-xl p-6 sm:p-8">
+import React, { useState } from 'react';
+import { 
+  Headphones, 
+  ShieldCheck, 
+  Clock, 
+  AlertTriangle, 
+  HeartHandshake, 
+  MessageSquare, 
+  UserCheck, 
+  FileText,
+  Printer,
+  X,
+  Volume2,
+  ThumbsUp,
+  Key,
+  Timer,
+  AlertOctagon
+} from 'lucide-react';
+
+export default function App() {
+  const [showModal, setShowModal] = useState(false);
+
+  const handlePrint = () => {
+    try {
+      window.print();
+    } catch(e) {
+      console.log("Impresión bloqueada por el navegador");
+    }
+    setShowModal(true);
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-100 p-4 sm:p-8 font-sans flex justify-center print:block print:bg-white print:p-0 print:m-0 print:min-h-0">
+      
+      {/* Contenedor Principal */}
+      <div className="w-full max-w-4xl bg-white shadow-2xl rounded-xl overflow-hidden print:shadow-none print:rounded-none print:overflow-visible print:max-w-full">
+        
+        {/* ENCABEZADO */}
+        <header className="bg-gradient-to-r from-blue-900 to-blue-700 text-white p-6 print:py-4 print:bg-none print:bg-white print:text-blue-900 print:border-b-4 print:border-blue-900">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-4">
+              <div className="bg-white p-3 rounded-full text-blue-900 print:hidden">
+                <Headphones size={32} />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold uppercase tracking-wide">Guía de Atención Telefónica</h1>
+                <p className="text-blue-100 text-sm mt-1 flex items-center gap-2 print:text-blue-800">
+                  <FileText size={16} /> 
+                  Manejo de Tiempos: Constancias de Retención de Impuestos
+                </p>
+              </div>
+            </div>
+            <button 
+              onClick={handlePrint}
+              className="hidden sm:flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg transition-colors print:hidden text-sm"
+            >
+              <Printer size={18} />
+              Guardar PDF
+            </button>
+          </div>
+        </header>
+
+        <div className="p-6 md:p-8">
+          
+          {/* OBJETIVO */}
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg mb-8 text-blue-900 print:bg-blue-50">
+            <p className="font-semibold flex items-center gap-2">
+              <ShieldCheck size={20} className="text-blue-600" />
+              Objetivo de esta guía:
+            </p>
+            <p className="text-sm mt-1">
+              Tranquilizar al trabajador, confirmar que su trámite está en seguimiento por la <strong>Unidad Especializada</strong> y justificar el tiempo de espera <strong>sin mencionar al área de Contabilidad ni prometer días exactos.</strong>
+            </p>
+          </div>
+
+          {/* GUIONES */}
+          <h2 className="text-xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-6 flex items-center gap-2">
+            <MessageSquare className="text-blue-600" />
+            Guiones de Respuesta
+          </h2>
+
+          <div className="space-y-6">
             
-            <!-- Encabezado del reporte -->
-            <header class="border-b border-slate-200 pb-4 mb-6">
-                <h1 class="text-2xl sm:text-3xl font-bold text-slate-900">Reporte Folios MSO | Corte Sem 41</h1>
-                <p class="text-right text-sm text-slate-500 italic mt-2">Fecha de Corte: 09 de Octubre, 2025</p>
-            </header>
+            {/* OPCIÓN 1 */}
+            <div className="bg-white border border-emerald-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow print:break-inside-avoid">
+              <div className="bg-emerald-50 px-4 py-3 border-b border-emerald-100 flex items-center gap-3">
+                <div className="bg-emerald-100 p-2 rounded-full text-emerald-700">
+                  <UserCheck size={20} />
+                </div>
+                <div>
+                  <h3 className="font-bold text-emerald-900">Opción 1: Atención y Cuidado</h3>
+                  <p className="text-xs text-emerald-700">Ideal para: Trabajadores inquietos pero dialogantes.</p>
+                </div>
+              </div>
+              <div className="p-4 text-gray-700 italic text-sm md:text-base leading-relaxed bg-emerald-50/30">
+                "Entiendo su urgencia por realizar su aclaración fiscal, [Nombre]. Revisando su folio, le confirmo que <strong className="text-emerald-900">su solicitud y su RFC ya están en manos de nuestra Unidad Especializada</strong>. Al tratarse de un documento oficial, su emisión requiere un proceso interno de validación para garantizar que los importes y sus datos estén correctos. Estamos trabajando para enviársela en el menor tiempo posible directamente a su correo. Le aseguro que su trámite está en movimiento y le estamos dando el seguimiento adecuado."
+              </div>
+            </div>
 
-            <main>
-                <!-- Sección de Métricas -->
-                <section class="mb-8">
-                    <h2 class="text-xl font-semibold text-slate-700 mb-4">1. Impacto y Resultados Clave de la Última Semana.</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <!-- Card: Total Folios -->
-                        <div class="bg-slate-50 border border-slate-200 p-4 rounded-lg flex items-center gap-4">
-                            <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
-                            </div>
-                            <div>
-                                <span class="text-3xl font-bold">176</span>
-                                <p class="text-sm text-slate-500">Total Folios en Gestión</p>
-                            </div>
-                        </div>
-                        <!-- Card: Resueltos -->
-                        <div class="bg-green-50 border border-green-200 p-4 rounded-lg flex items-center gap-4">
-                            <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                            </div>
-                            <div>
-                                <span class="text-3xl font-bold">16</span>
-                                <p class="text-sm text-slate-500">Folios Resueltos</p>
-                            </div>
-                        </div>
-                        <!-- Card: Pendientes -->
-                        <div class="bg-amber-50 border border-amber-200 p-4 rounded-lg flex items-center gap-4">
-                           <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                           </div>
-                            <div>
-                                <span class="text-3xl font-bold">160</span>
-                                <p class="text-sm text-slate-500">Folios Pendientes (Focus)</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                
-                <!-- Sección de Acciones -->
-                <section class="mb-8">
-                    <h2 class="text-xl font-semibold text-slate-700 mb-4">2. Acciones Estratégicas por Gerencia</h2>
-                    <div class="space-y-6"> <!-- Aumenté el espacio entre gerencias -->
-                        <!-- Gerencia de Servicios Admón. de Expedientes -->
-                        <div>
-                            <h3 class="text-lg font-medium text-slate-500 mb-3">Gerencia de Servicios Admón. de Expedientes</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div class="md:col-span-2 flex gap-4 items-start p-4 border rounded-lg bg-slate-50/50">
-                                   <div class="flex-shrink-0 w-8 h-8 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center mt-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-1.707 1.707A1 1 0 003 15v4a1 1 0 001 1h12a1 1 0 001-1v-4a1 1 0 00-.293-.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" /></svg>
-                                   </div>
-                                   <div>
-                                        <h4 class="font-semibold text-slate-700">Actualización Quebrantos y Bitácora de Estatus</h4>
-                                        <p class="text-slate-600 text-sm">Se detiene el contacto para la coordinación de visitas por quebranto de los 2 trabajadores pendientes por falta de respuesta. Adicionalmente, el equipo de Separación de Cuentas comparte una bitácora de estatus en tiempo real para agilizar la espera de respuesta para los trabajadores que solicitan avances de sus trámites.</p>
-                                   </div>
-                                </div>
-                                <div class="md:col-span-1 p-4 border rounded-lg bg-slate-50/50">
-                                    <h4 class="font-semibold text-slate-700 mb-2 text-center">Avances última semana</h4>
-                                    <ul class="text-sm text-slate-600 space-y-1">
-                                        <li class="flex justify-between items-center"><span>Nuevo Universo:</span> <span class="font-bold text-lg">7</span></li>
-                                        <li class="flex justify-between items-center"><span>Resueltos:</span> <span class="font-bold text-lg text-green-600">3</span></li>
-                                        <li class="flex justify-between items-center"><span>En seguimiento:</span> <span class="font-bold text-lg text-amber-600">4</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Gerencia de Retiros -->
-                        <div>
-                            <h3 class="text-lg font-medium text-slate-500 mb-3">Gerencia de Retiros</h3>
-                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div class="md:col-span-2 flex gap-4 items-start p-4 border rounded-lg bg-slate-50/50">
-                                   <div class="flex-shrink-0 w-8 h-8 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mt-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" /></svg>
-                                   </div>
-                                   <div>
-                                        <h4 class="font-semibold text-slate-700">Homologación de Saldos INFONAVIT</h4>
-                                        <p class="text-slate-600 text-sm">Se recibió un universo de trabajadores con saldos ya homologados por el INFONAVIT, por lo que se inició la gestión de contacto para su notificación. De forma paralela, se mantiene el seguimiento sobre los casos restantes y continúan las sesiones semanales con el área de retiros para agilizar el proceso.</p>
-                                   </div>
-                                </div>
-                                <div class="md:col-span-1 p-4 border rounded-lg bg-slate-50/50">
-                                    <h4 class="font-semibold text-slate-700 mb-2 text-center">Avances última semana</h4>
-                                    <ul class="text-sm text-slate-600 space-y-1">
-                                        <li class="flex justify-between items-center"><span>Nuevo Universo:</span> <span class="font-bold text-lg">122</span></li>
-                                        <li class="flex justify-between items-center"><span>Resueltos:</span> <span class="font-bold text-lg text-green-600">5</span></li>
-                                        <li class="flex justify-between items-center"><span>En seguimiento:</span> <span class="font-bold text-lg text-amber-600">117</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Gerencia de Traspasos -->
-                        <div>
-                            <h3 class="text-lg font-medium text-slate-500 mb-3">Gerencia de Traspasos</h3>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div class="md:col-span-2 flex gap-4 items-start p-4 border rounded-lg bg-slate-50/50">
-                                   <div class="flex-shrink-0 w-8 h-8 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center mt-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="http://www.w3.org/2000/svg"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" /></svg>
-                                   </div>
-                                   <div>
-                                        <h4 class="font-semibold text-slate-700">Respuesta del Instituto y Seguimiento en Subcomité</h4>
-                                        <p class="text-slate-600 text-sm">Como resultado de la gestión, esta semana se obtuvo respuesta del Instituto, logrando solucionar 8 casos. De forma paralela, se continúa impulsando el tema desde el Subcomité de Unificación y Separación para dar atención al universo restante.</p>
-                                   </div>
-                                </div>
-                                <div class="md:col-span-1 p-4 border rounded-lg bg-slate-50/50">
-                                    <h4 class="font-semibold text-slate-700 mb-2 text-center">Avances última semana</h4>
-                                    <ul class="text-sm text-slate-600 space-y-1">
-                                        <li class="flex justify-between items-center"><span>Nuevo Universo:</span> <span class="font-bold text-lg">47</span></li>
-                                        <li class="flex justify-between items-center"><span>Resueltos:</span> <span class="font-bold text-lg text-green-600">8</span></li>
-                                        <li class="flex justify-between items-center"><span>En seguimiento:</span> <span class="font-bold text-lg text-amber-600">39</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                
-                <!-- Nota sobre Folios con Dependencia -->
-                <section class="mb-8">
-                     <div class="bg-sky-50 border-l-4 border-sky-500 text-sky-900 p-4 rounded-r-lg flex items-center gap-4" role="alert">
-                        <div class="flex-shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                        </div>
-                        <div>
-                             <p class="font-medium">Nota</p>
-                             <p class="text-sm">Contamos con un universo actual de 187 Folios con dependencia de los Institutos (INFONAVIT, IMSS, ProceSAR).</p>
-                        </div>
-                    </div>
-                </section>
+            {/* OPCIÓN 2 */}
+            <div className="bg-white border border-orange-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow print:break-inside-avoid">
+              <div className="bg-orange-50 px-4 py-3 border-b border-orange-100 flex items-center gap-3">
+                <div className="bg-orange-100 p-2 rounded-full text-orange-700">
+                  <AlertTriangle size={20} />
+                </div>
+                <div>
+                  <h3 className="font-bold text-orange-900">Opción 2: Contención y Desescalada</h3>
+                  <p className="text-xs text-orange-700">Ideal para: Trabajadores muy molestos o desesperados.</p>
+                </div>
+              </div>
+              <div className="p-4 text-gray-700 italic text-sm md:text-base leading-relaxed bg-orange-50/30">
+                "Comprendo su molestia y la preocupación por los tiempos de su trámite, [Nombre]. Quiero darle la tranquilidad de que <strong className="text-orange-900">su folio se encuentra activo y en revisión</strong>. La Unidad Especializada ya está procesando la elaboración de su constancia. Como estos documentos requieren timbrados y validaciones fiscales internas, el proceso toma un poco más de tiempo de lo habitual. Tenga la certeza de que su trámite es una prioridad y, tan pronto el sistema libere el documento, se lo haremos llegar de inmediato a su correo."
+              </div>
+            </div>
 
-                <!-- Sección de Foco Crítico -->
-                <section>
-                    <h2 class="text-xl font-semibold text-slate-700 mb-4">3. Foco Crítico Próxima Semana</h2>
-                    <div class="bg-amber-100/60 border-l-4 border-amber-500 text-amber-900 p-4 rounded-r-lg" role="alert">
-                        <p class="font-bold">Seguiremos priorizando en maximizar la presión por parte del gremio con CONSAR, con apoyo de las áreas de Operaciones, para solventar acciones de solución a raíz para todos aquellos casos con dependencia con los institutos.</p>
-                    </div>
-                </section>
-            </main>
+            {/* OPCIÓN 3 */}
+            <div className="bg-white border border-blue-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow print:break-inside-avoid">
+              <div className="bg-blue-50 px-4 py-3 border-b border-blue-100 flex items-center gap-3">
+                <div className="bg-blue-100 p-2 rounded-full text-blue-700">
+                  <Clock size={20} />
+                </div>
+                <div>
+                  <h3 className="font-bold text-blue-900">Opción 3: Breve y Directo</h3>
+                  <p className="text-xs text-blue-700">Ideal para: Llamadas rápidas de actualización de estatus.</p>
+                </div>
+              </div>
+              <div className="p-4 text-gray-700 italic text-sm md:text-base leading-relaxed bg-blue-50/30">
+                "Le comprendo, [Nombre]. Veo en el sistema que la Unidad Especializada ya recibió su RFC y <strong className="text-blue-900">actualmente su constancia se encuentra en la etapa de emisión</strong>. Debido a la naturaleza fiscal de este documento, su elaboración lleva un proceso de revisión y no se genera de forma automática. Le pido un poco de paciencia, su solicitud está activa. En cuanto la constancia esté lista, se le enviará a su correo."
+              </div>
+            </div>
+
+          </div>
+
+          {/* CONSEJOS CLAVE */}
+          <div className="mt-10 break-inside-avoid">
+            <h2 className="text-xl font-bold text-gray-800 border-b-2 border-gray-200 pb-2 mb-6 flex items-center gap-2">
+              <HeartHandshake className="text-blue-600" />
+              Consejos Clave de Atención
+            </h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-gray-50 border border-gray-200 p-4 rounded-lg">
+                <h4 className="font-bold text-blue-900 mb-1 flex items-center gap-2">
+                  <Volume2 size={18} className="text-blue-600" />
+                  Tono de voz
+                </h4>
+                <p className="text-sm text-gray-600">Tranquilo, seguro y empático. El cliente está estresado por temas del SAT, transmitir calma es fundamental.</p>
+              </div>
+              <div className="bg-gray-50 border border-gray-200 p-4 rounded-lg">
+                <h4 className="font-bold text-blue-900 mb-1 flex items-center gap-2">
+                  <ThumbsUp size={18} className="text-blue-600" />
+                  Validación
+                </h4>
+                <p className="text-sm text-gray-600">Comienza dándole la razón: <em>"Entiendo su urgencia"</em>, <em>"Comprendo su molestia"</em>. Esto baja la guardia del trabajador.</p>
+              </div>
+              <div className="bg-gray-50 border border-gray-200 p-4 rounded-lg">
+                <h4 className="font-bold text-blue-900 mb-1 flex items-center gap-2">
+                  <Key size={18} className="text-blue-600" />
+                  Palabras clave
+                </h4>
+                <p className="text-sm text-gray-600">Usa frases como <strong>"Trámite activo"</strong> o <strong>"En revisión"</strong>. Da mucha paz mental saber que su trámite no se perdió.</p>
+              </div>
+              <div className="bg-gray-50 border border-gray-200 p-4 rounded-lg">
+                <h4 className="font-bold text-blue-900 mb-1 flex items-center gap-2">
+                  <Timer size={18} className="text-blue-600" />
+                  Presión del tiempo
+                </h4>
+                <p className="text-sm text-gray-600">Si exigen fecha exacta: <em>"Dependemos de validaciones fiscales del sistema, mi compromiso es que se libere lo más pronto posible."</em></p>
+              </div>
+            </div>
+          </div>
+
+          {/* REGLA IMPORTANTE */}
+          <div className="mt-8 bg-red-50 text-red-800 p-4 rounded-lg text-center font-bold text-sm border border-red-200 flex flex-col sm:flex-row items-center justify-center gap-2">
+            <AlertOctagon size={20} className="text-red-600" />
+            <span><strong>REGLA IMPORTANTE:</strong> Nunca mencionar al área de Contabilidad ni prometer plazos fijos de días.</span>
+          </div>
+
         </div>
+      </div>
+
+      {/* MODAL INSTRUCCIONES IMPRESIÓN */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50 print:hidden backdrop-blur-sm">
+          <div className="bg-white rounded-xl shadow-2xl p-6 max-w-sm w-full relative">
+            <button 
+              onClick={() => setShowModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <X size={24} />
+            </button>
+            <h3 className="text-xl font-bold text-blue-900 mb-2 flex items-center gap-2">
+              <Printer size={24} />
+              Guardar como PDF
+            </h3>
+            <p className="text-gray-600 mb-4 text-sm">
+              Para guardar esta guía con todo su diseño, sigue estos pasos:
+            </p>
+            <ol className="list-decimal list-inside text-gray-800 space-y-2 mb-6 text-sm font-medium">
+              <li>Haz clic en el fondo blanco de la guía.</li>
+              <li>Presiona <strong>Ctrl + P</strong> (Windows) o <strong>Cmd + P</strong> (Mac).</li>
+              <li>En destino, elige <strong>Guardar como PDF</strong>.</li>
+              <li className="text-blue-700">Asegúrate de marcar la opción <strong>"Gráficos de fondo"</strong> en Más ajustes.</li>
+            </ol>
+            <button 
+              onClick={() => setShowModal(false)}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition-colors"
+            >
+              Entendido
+            </button>
+          </div>
+        </div>
+      )}
+
     </div>
-</body>
-</html>
+  );
+}
